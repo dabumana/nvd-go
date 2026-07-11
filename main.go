@@ -1,7 +1,6 @@
 package nvd
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
