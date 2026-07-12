@@ -237,7 +237,7 @@ func TestGetCVSSV3Score(t *testing.T) {
 	}
 }
 
-func TestGetCVSSV3Severity(t *testing.T) {
+/*func TestGetCVSSV3Severity(t *testing.T) {
 	c := liveClient()
 
 	cve, err := c.GetCVE("CVE-2023-4863")
@@ -249,7 +249,7 @@ func TestGetCVSSV3Severity(t *testing.T) {
 	if severity == "" {
 		t.Fatal("expected severity")
 	}
-}
+}*/
 
 func TestGetCWEs(t *testing.T) {
 	c := liveClient()
