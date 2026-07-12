@@ -7,7 +7,7 @@ A complete Go client for the NVD API 2.0 - the US government's public repository
 ## Installation
 
 ```bash
-go get github.com/yourusername/nvd
+go get github.com/dabumana/nvd-go
 ```
 
 Replace with your actual module path if publishing.
@@ -20,7 +20,7 @@ package main
 import (
     "fmt"
     "log"
-    "github.com/yourusername/nvd"
+    nvd "github.com/dabumana/nvd-go"
 )
 
 func main() {
