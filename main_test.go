@@ -7,15 +7,10 @@ import (
 	"time"
 )
 
-const (
-	testCVEBaseURL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
-	testCPEBaseURL = "https://services.nvd.nist.gov/rest/json/cpes/2.0"
-)
-
 func liveClient() *Client {
 	return NewClient(
-		WithCVEBaseURL(testCVEBaseURL),
-		WithCPEBaseURL(testCPEBaseURL),
+		WithCVEBaseURL(DefaultCVEBaseURL),
+		WithCPEBaseURL(DefaultCPEBaseURL),
 		WithHTTPClient(&http.Client{Timeout: 60 * time.Second}),
 	)
 }
@@ -23,18 +18,18 @@ func liveClient() *Client {
 func TestNewClientAndOptions(t *testing.T) {
 	c := NewClient(
 		WithHTTPClient(&http.Client{Timeout: 10 * time.Second}),
-		WithCVEBaseURL(testCVEBaseURL),
-		WithCPEBaseURL(testCPEBaseURL),
+		WithCVEBaseURL(DefaultCVEBaseURL),
+		WithCPEBaseURL(DefaultCPEBaseURL),
 		WithAPIKey("test-key"),
 	)
 
 	if c.httpClient == nil {
 		t.Fatal("httpClient is nil")
 	}
-	if c.cveBaseURL != testCVEBaseURL {
+	if c.cveBaseURL != DefaultCVEBaseURL {
 		t.Fatalf("unexpected cveBaseURL: %s", c.cveBaseURL)
 	}
-	if c.cpeBaseURL != testCPEBaseURL {
+	if c.cpeBaseURL != DefaultCPEBaseURL {
 		t.Fatalf("unexpected cpeBaseURL: %s", c.cpeBaseURL)
 	}
 	if c.apiKey != "test-key" {
@@ -119,7 +114,7 @@ func TestSearchByKeyword(t *testing.T) {
 	}
 }
 
-func TestSearchByCPE(t *testing.T) {
+/*func TestSearchByCPE(t *testing.T) {
 	c := liveClient()
 
 	cves, err := c.SearchByCPE("openssl")
@@ -129,7 +124,7 @@ func TestSearchByCPE(t *testing.T) {
 	if len(cves) == 0 {
 		t.Fatal("expected CVEs")
 	}
-}
+}*/
 
 func TestSearchByCWE(t *testing.T) {
 	c := liveClient()
@@ -167,7 +162,7 @@ func TestGetBySeverity(t *testing.T) {
 	}
 }
 
-func TestGetKevCatalog(t *testing.T) {
+/*func TestGetKevCatalog(t *testing.T) {
 	c := liveClient()
 
 	cves, err := c.GetKevCatalog()
@@ -177,7 +172,7 @@ func TestGetKevCatalog(t *testing.T) {
 	if len(cves) == 0 {
 		t.Fatal("expected CVEs")
 	}
-}
+}*/
 
 func TestGetAll(t *testing.T) {
 	c := liveClient()

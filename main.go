@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	DefaultCVEBaseURL = "services.nvd.nist.gov/rest/json/cves/2.0"
-	DefaultCPEBaseURL = "services.nvd.nist.gov/rest/json/cpes/2.0"
+	DefaultCVEBaseURL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
+	DefaultCPEBaseURL = "https://services.nvd.nist.gov/rest/json/cpes/2.0"
 	DefaultTimeout    = 30 * time.Second
 )
 
