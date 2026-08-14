@@ -13,8 +13,6 @@ import (
 	"time"
 )
 
-// testCVEJSON mirrors the real /cves/2.0 response shape and exercises every
-// CVE object field supported by the client.
 const testCVEJSON = `{
   "resultsPerPage": 1,
   "startIndex": 0,
@@ -176,7 +174,6 @@ const testCVEJSON = `{
   ]
 }`
 
-// testCPEJSON mirrors the real /cpes/2.0 response shape.
 const testCPEJSON = `{
   "resultsPerPage": 2,
   "startIndex": 0,
@@ -201,7 +198,6 @@ const testCPEJSON = `{
   ]
 }`
 
-// testSourceJSON mirrors the real /source/2.0 response shape.
 const testSourceJSON = `{
   "resultsPerPage": 2,
   "startIndex": 0,
@@ -380,7 +376,6 @@ func TestSearchCves_AllFilters(t *testing.T) {
 	assertQueryParam(t, got, "resultsPerPage", "10")
 	assertQueryParam(t, got, "startIndex", "5")
 
-	// CPE- and source-only parameters must not be sent to the CVE endpoint.
 	for _, key := range []string{"cpeMatchString", "cpeNameId", "sourceName"} {
 		if got.Get(key) != "" {
 			t.Errorf("query param %q should not be sent to the CVE endpoint, got %q", key, got.Get(key))
@@ -729,8 +724,6 @@ func TestGetModifiedCPEs(t *testing.T) {
 	}
 }
 
-// cvePageJSON builds a CVE API page where each page holds up to perPage
-// records out of a total of total records.
 func cvePageJSON(startIndex, perPage, total int) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, `{"resultsPerPage":%d,"startIndex":%d,"totalResults":%d,"format":"NVD_CVE","version":"2.0","timestamp":"2026-08-14T00:00:00.000","vulnerabilities":[`,
@@ -944,9 +937,6 @@ func TestGetCWEs(t *testing.T) {
 	}
 }
 
-// TestLiveNVDEndpoints validates the client against the real NVD API.
-// Run with NVD_LIVE=1. Requests are spaced 6 seconds apart per the NVD
-// best practices.
 func TestLiveNVDEndpoints(t *testing.T) {
 	if os.Getenv("NVD_LIVE") != "1" {
 		t.Skip("set NVD_LIVE=1 to run live tests against the NVD API")
@@ -962,7 +952,6 @@ func TestLiveNVDEndpoints(t *testing.T) {
 	}
 	time.Sleep(RecommendedRequestDelay)
 
-	// CVSS v4 metrics (CVE-2024-0012 is scored with CVSS v4.0).
 	v4resp, err := c.SearchCves(Filter{CveID: "CVE-2024-0012", ResultsPerPage: 1})
 	if err != nil {
 		t.Fatalf("live SearchCves (v4) failed: %v", err)
